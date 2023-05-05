@@ -1,11 +1,14 @@
 <?php include __DIR__ . '/function/function.php';
-    $usernumber = $_GET['number'];
-    if($usernumber >= 8){
-        $pw = randomPassword($usernumber);
-        $fail = false;
-    }else{
-        $fail = true;
+    if(!empty($_GET['number'])){
+        $usernumber = $_GET['number'];
+        if($usernumber >= 8){
+            $pw = randomPassword($usernumber);
+            $fail = false;
+        }else{
+            $fail = true;
+        }
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -24,13 +27,15 @@
         <input class="form-control mx-2" type="number" placeholder="Enter a number" name="number">
         <button class="btn btn-primary mx-2">Send</button>
     </form>
-    <p class="py-4 fs-3"><?php if($fail == false){
+    <p class="py-4 fs-3"><?php if(!empty($_GET['number'])){
+        if($fail == false){
             for($i = 0; $i < count($pw); $i++){
                 echo $pw[$i];
             }
         }else{ ?>
             <h4>Invalid number, please enter a number between 8 and 50</h4>
-        <?php } ?>
+        <?php } 
+        }?>
     </p>
 </body>
 </html>
